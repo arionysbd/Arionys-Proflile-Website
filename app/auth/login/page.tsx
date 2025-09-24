@@ -50,7 +50,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center overflow-hidden">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center overflow-hidden">
               <Image 
                 src="/arionys-logo.png" 
                 alt="Arionys Logo" 

@@ -130,7 +130,7 @@ export function PublicProfile({ profile, blocks, isPreview = false }: PublicProf
         <header className="bg-white/80 backdrop-blur-sm border-b sticky top-0 z-50">
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <img src="/arionys-logo.png" alt="Arionys" className="h-8 w-auto" />
+              <img src="/arionys-logo.png" alt="Arionys" className="h-8 w-8 rounded-full" />
               <span className="font-bold text-xl">Arionys Profile</span>
             </div>
           </div>

@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import Link from "next/link"
+import Image from "next/image"
 import { useState } from "react"
 import { ArrowLeft, Mail } from "lucide-react"
 
@@ -50,9 +51,7 @@ export default function ForgotPasswordPage() {
         <div className="w-full max-w-md">
           <div className="text-center mb-8">
             <div className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold">AN</span>
-              </div>
+              <Image src="/arionys-logo.png" alt="Arionys" width={40} height={40} priority className="rounded-full" />
               <span className="font-bold text-2xl">Arionys Profile</span>
             </div>
           </div>
@@ -89,9 +88,7 @@ export default function ForgotPasswordPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">AN</span>
-            </div>
+            <Image src="/arionys-logo.png" alt="Arionys" width={40} height={40} priority className="rounded-full" />
             <span className="font-bold text-2xl">Arionys Profile</span>
           </div>
         </div>

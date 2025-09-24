@@ -59,7 +59,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
       <div className="container mx-auto px-4 py-4 flex items-center justify-between">
         <div className="flex items-center space-x-8">
           <Link href="/dashboard" className="flex items-center space-x-3 group">
-            <div className="w-10 h-10 rounded-sm flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 overflow-hidden">
+            <div className="w-10 h-10 rounded-full flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105 overflow-hidden">
               <img 
                 src="/arionys-logo.png" 
                 alt="Arionys Logo" 

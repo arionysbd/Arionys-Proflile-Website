@@ -11,7 +11,7 @@ export default function HomePage() {
       <header className="border-b bg-white/90 backdrop-blur-md sticky top-0 z-50 shadow-sm">
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <img src="/arionys-logo.png" alt="Arionys Logo" className="w-10 h-10 rounded-md" />
+            <img src="/arionys-logo.png" alt="Arionys Logo" className="w-10 h-10 rounded-full" />
             <span className="font-bold text-xl bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">Arionys Profile</span>
           </div>
           <div className="flex items-center space-x-4">

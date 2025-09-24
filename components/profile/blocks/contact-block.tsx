@@ -151,9 +151,8 @@ export function ContactBlock({ block, theme = "default", profileId }: ContactBlo
             </div>
             <div className="flex items-center gap-2 flex-shrink-0">
               {type === "phone" && (
-                <Button variant="default" size="sm" onClick={handleSaveContact}>
-                  <Save className="h-4 w-4 mr-1" />
-                  Save Contact
+                <Button variant="ghost" size="sm" onClick={handleSaveContact} title="Save contact">
+                  <Save className="h-4 w-4" />
                 </Button>
               )}
               <Button variant="ghost" size="sm" onClick={handleCopy}>

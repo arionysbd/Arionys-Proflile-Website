@@ -51,10 +51,9 @@ export function WhatsAppBlock({ block, theme = "default", profileId }: WhatsAppB
               <p className="text-sm font-mono text-gray-700 dark:text-gray-200 truncate mt-0.5">{phoneNumber}</p>
             </div>
           </div>
-          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
-            <Button size="sm">
-              <ExternalLink className="h-4 w-4 mr-1" />
-              {buttonText || "Open"}
+          <a href={whatsappUrl} target="_blank" rel="noopener noreferrer" title="Open in WhatsApp">
+            <Button size="sm" variant="ghost">
+              <ExternalLink className="h-4 w-4" />
             </Button>
           </a>
         </div>

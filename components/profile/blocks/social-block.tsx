@@ -22,6 +22,7 @@ export function SocialBlock({ block, theme = "default" }: SocialBlockProps) {
   const platformName = platformData.name
   const platformIcon = platformData.icon
   const platformColor = platformData.color
+  const isFacebook = platform === "facebook"
 
   return (
     <Card className={`${classes.card} hover:shadow-md transition-shadow`}>
@@ -33,8 +34,14 @@ export function SocialBlock({ block, theme = "default" }: SocialBlockProps) {
           className="flex items-center justify-between group"
         >
           <div className="flex items-center space-x-4">
-            <div className={`w-12 h-12 ${platformColor} rounded-full flex items-center justify-center`}>
-              <span className="text-white flex items-center justify-center">{platformIcon}</span>
+            <div
+              className={`w-12 h-12 ${
+                isFacebook ? "bg-gray-100" : platformColor
+              } rounded-full flex items-center justify-center`}
+            >
+              <span className={`${isFacebook ? "text-black" : "text-white"} flex items-center justify-center`}>
+                {platformIcon}
+              </span>
             </div>
             <div>
               <h3 className={`${getTextClasses({theme, type: "heading", size: "base"})} group-hover:${classes.primary} transition-colors`}>

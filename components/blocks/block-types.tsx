@@ -96,9 +96,11 @@ export const BLOCK_TYPES = {
     icon: <MessageSquare className="h-4 w-4" />,
     fields: [
       { key: "phoneNumber", label: "Phone Number", type: "text", placeholder: "+1234567890" },
+      { key: "contactName", label: "Contact Name", type: "text", placeholder: "John Doe" },
+      { key: "designation", label: "Designation", type: "text", placeholder: "Product Manager" },
       { key: "message", label: "Pre-filled Message", type: "textarea", placeholder: "Hello, I'd like to connect with you!" },
       { key: "buttonText", label: "Button Text", type: "text", placeholder: "Chat on WhatsApp" },
-      { key: "description", label: "Description", type: "text", placeholder: "Contact me on WhatsApp for quick responses" },
+      { key: "description", label: "Description", type: "text", placeholder: "Optional short note (shown under title)" },
     ],
   },
   contact: {

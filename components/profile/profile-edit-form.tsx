@@ -39,8 +39,29 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
   const router = useRouter()
   const supabase = createClient()
 
-  const handleEmailUpdate = () => {
-    // Email update logic here
+  const handleEmailUpdate = async () => {
+    try {
+      setIsLoading(true)
+      setError("")
+      setAuthSuccess("")
+
+      const response = await fetch("/api/auth/update-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: authData.email.trim() }),
+      })
+
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error || "Failed to update email")
+
+      setAuthSuccess("Email updated successfully!")
+      setTimeout(() => setAuthSuccess(""), 3000)
+    } catch (e: any) {
+      setError(e?.message || "Failed to update email")
+      setTimeout(() => setError(""), 4000)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handlePasswordUpdate = () => {
@@ -167,7 +188,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
   const initials = profileData.display_name
     ? profileData.display_name
         .split(" ")
-        .map((name) => name[0])
+        .map((name: string) => name[0])
         .join("")
     : ""
 

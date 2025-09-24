@@ -38,7 +38,13 @@ export function BlockEditDialog({ block, isOpen, onClose, onSave }: BlockEditDia
 
   useEffect(() => {
     if (block) {
-      setFormData(block.content || {})
+      const initialContent = block.content || {}
+      // Ensure default mode for contact blocks is display
+      const normalizedContent =
+        block.block_type === "contact"
+          ? { mode: initialContent.mode || "display", ...initialContent }
+          : initialContent
+      setFormData(normalizedContent)
       setTitle(block.title || "")
     }
   }, [block])
@@ -79,7 +85,15 @@ export function BlockEditDialog({ block, isOpen, onClose, onSave }: BlockEditDia
     handleFieldChange("images", newImages)
   }
 
+  const isFieldVisible = (field: any) => {
+    if (!field.conditional) return true
+    const { field: dep, value } = field.conditional
+    const current = formData[dep]
+    return current === value
+  }
+
   const renderField = (field: any) => {
+    if (!isFieldVisible(field)) return null
     const value = formData[field.key] || ""
 
     switch (field.type) {
@@ -115,7 +129,10 @@ export function BlockEditDialog({ block, isOpen, onClose, onSave }: BlockEditDia
               <SelectValue placeholder="Select an option" />
             </SelectTrigger>
             <SelectContent>
-              {field.options?.map((option: string) => (
+              {field.options
+                ?.slice()
+                .sort((a: string, b: string) => a.localeCompare(b))
+                .map((option: string) => (
                 <SelectItem key={option} value={option}>
                   {option.charAt(0).toUpperCase() + option.slice(1)}
                 </SelectItem>
@@ -269,12 +286,17 @@ export function BlockEditDialog({ block, isOpen, onClose, onSave }: BlockEditDia
               />
             </div>
 
-            {blockType?.fields.map((field) => (
-              <div key={field.key} className="space-y-2">
-                <Label htmlFor={field.key}>{field.label}</Label>
-                {renderField(field)}
-              </div>
-            ))}
+            {blockType?.fields
+              .slice()
+              .sort((a: any, b: any) => (a.label || "").localeCompare(b.label || ""))
+              .map((field) => (
+                isFieldVisible(field) && (
+                  <div key={field.key} className="space-y-2">
+                    <Label htmlFor={field.key}>{field.label}</Label>
+                    {renderField(field)}
+                  </div>
+                )
+              ))}
           </div>
 
           <DialogFooter>

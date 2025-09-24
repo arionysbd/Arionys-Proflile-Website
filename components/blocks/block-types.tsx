@@ -115,18 +115,33 @@ export const BLOCK_TYPES = {
         options: ["email", "phone", "address", "website"],
         conditional: { field: "mode", value: "display" },
       },
+      // Extra fields for phone contact type
       {
-        key: "label",
-        label: "Label",
+        key: "contactName",
+        label: "Contact Name",
         type: "text",
-        placeholder: "Work Email",
-        conditional: { field: "mode", value: "display" },
+        placeholder: "John Doe",
+        conditional: { field: "type", value: "phone" },
       },
+      {
+        key: "designation",
+        label: "Designation",
+        type: "text",
+        placeholder: "Product Manager",
+        conditional: { field: "type", value: "phone" },
+      },
+      // {
+      //   key: "label",
+      //   label: "Label",
+      //   type: "text",
+      //   placeholder: "Work Email",
+      //   conditional: { field: "mode", value: "display" },
+      // },
       {
         key: "value",
         label: "Value",
         type: "text",
-        placeholder: "contact@example.com",
+        placeholder: "Mobile No / Email / Website / Address",
         conditional: { field: "mode", value: "display" },
       },
       // Form mode fields

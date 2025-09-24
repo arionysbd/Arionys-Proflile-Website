@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Mail, Phone, MapPin, Globe, Copy, Send, CheckCircle, Loader2 } from "lucide-react"
+import { Mail, Phone, MapPin, Globe, Copy, Send, CheckCircle, Loader2, Save } from "lucide-react"
 import { useState } from "react"
 import { getTheme, getThemeClasses } from "@/lib/themes"
 import { getTextClasses } from "@/lib/text-formatting"
@@ -39,6 +39,8 @@ export function ContactBlock({ block, theme = "default", profileId }: ContactBlo
     type,
     label,
     value,
+    contactName,
+    designation,
     formTitle,
     formDescription,
     notificationEmail,
@@ -85,6 +87,35 @@ export function ContactBlock({ block, theme = "default", profileId }: ContactBlo
 
     const isClickable = type !== "address"
 
+    const handleSaveContact = () => {
+      try {
+        const fullName = contactName || ""
+        const title = designation || ""
+        const phoneNumber = value || ""
+        const lines = [
+          "BEGIN:VCARD",
+          "VERSION:3.0",
+          fullName ? `FN:${fullName}` : undefined,
+          title ? `TITLE:${title}` : undefined,
+          phoneNumber ? `TEL;TYPE=CELL:${phoneNumber}` : undefined,
+          "END:VCARD",
+        ].filter(Boolean)
+        const vcard = lines.join("\n")
+
+        const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8" })
+        const url = URL.createObjectURL(blob)
+        const link = document.createElement("a")
+        link.href = url
+        link.download = `${fullName || "contact"}.vcf`
+        document.body.appendChild(link)
+        link.click()
+        document.body.removeChild(link)
+        URL.revokeObjectURL(url)
+      } catch (err) {
+        console.error("Failed to save contact:", err)
+      }
+    }
+
     return (
       <Card className={`${classes.card} hover:shadow-md transition-shadow`}>
         <CardContent className="p-4">
@@ -109,12 +140,27 @@ export function ContactBlock({ block, theme = "default", profileId }: ContactBlo
                 ) : (
                   <p className={`text-sm ${getTextClasses({ theme, type: "muted", size: "sm" })} truncate`}>{value}</p>
                 )}
+                {type === "phone" && (contactName || designation) && (
+                  <p className={`text-xs ${getTextClasses({ theme, type: "muted", size: "sm" })} truncate mt-0.5`}>
+                    {contactName}
+                    {contactName && designation ? " — " : ""}
+                    {designation}
+                  </p>
+                )}
               </div>
             </div>
-            <Button variant="ghost" size="sm" onClick={handleCopy} className="flex-shrink-0">
-              <Copy className="h-4 w-4" />
-              {copied && <span className="ml-1 text-xs">Copied!</span>}
-            </Button>
+            <div className="flex items-center gap-2 flex-shrink-0">
+              {type === "phone" && (
+                <Button variant="default" size="sm" onClick={handleSaveContact}>
+                  <Save className="h-4 w-4 mr-1" />
+                  Save Contact
+                </Button>
+              )}
+              <Button variant="ghost" size="sm" onClick={handleCopy}>
+                <Copy className="h-4 w-4" />
+                {copied && <span className="ml-1 text-xs">Copied!</span>}
+              </Button>
+            </div>
           </div>
         </CardContent>
       </Card>

@@ -37,7 +37,9 @@ export default function SignUpPage() {
         email,
         password,
         options: {
-          emailRedirectTo: process.env.NEXT_PUBLIC_DEV_SUPABASE_REDIRECT_URL || `${window.location.origin}/dashboard`,
+          emailRedirectTo:
+            (process.env.NEXT_PUBLIC_SITE_URL || typeof window !== "undefined" ? `${window.location.origin}` : "") +
+            "/auth/callback",
           data: {
             display_name: displayName,
             username: username.toLowerCase().replace(/\s+/g, ""),

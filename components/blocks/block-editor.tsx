@@ -58,7 +58,7 @@ export function BlockEditor({
         profile_id: profile.id,
         block_type: blockType,
         title: "",
-        content: {},
+        content: blockType === "contact" ? { mode: "display" } : {},
         position: blocks.length,
         is_visible: true,
       }
@@ -252,7 +252,9 @@ export function BlockEditor({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
-                {Object.entries(BLOCK_TYPES).map(([key, blockType]) => (
+                {Object.entries(BLOCK_TYPES)
+                  .sort((a, b) => a[1].name.localeCompare(b[1].name))
+                  .map(([key, blockType]) => (
                   <DropdownMenuItem key={key} onClick={() => handleDropdownClick(key)} className="cursor-pointer">
                     <span className="mr-2">{blockType.icon}</span>
                     {blockType.name}
@@ -283,7 +285,9 @@ export function BlockEditor({
                       </Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="center" className="w-56">
-                      {Object.entries(BLOCK_TYPES).map(([key, blockType]) => (
+                      {Object.entries(BLOCK_TYPES)
+                        .sort((a, b) => a[1].name.localeCompare(b[1].name))
+                        .map(([key, blockType]) => (
                         <DropdownMenuItem key={key} onClick={() => handleDropdownClick(key)} className="cursor-pointer">
                           <span className="mr-2">{blockType.icon}</span>
                           {blockType.name}
@@ -404,7 +408,9 @@ export function BlockEditor({
                 <CardDescription>Available content blocks for your profile</CardDescription>
               </CardHeader>
               <CardContent className="space-y-3">
-                {Object.entries(BLOCK_TYPES).map(([key, blockType]) => (
+                {Object.entries(BLOCK_TYPES)
+                  .sort((a, b) => a[1].name.localeCompare(b[1].name))
+                  .map(([key, blockType]) => (
                   <div
                     key={key}
                     className="flex items-center space-x-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors"

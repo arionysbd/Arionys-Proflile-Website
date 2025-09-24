@@ -12,6 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
 import { Switch } from "@/components/ui/switch"
 import { Lock, Mail, User, Eye, EyeOff, Upload, Save, Palette, Globe, Shield, AtSign } from "lucide-react"
+import { useToast } from "@/hooks/use-toast"
 import { ThemeSelector } from "@/components/profile/theme-selector"
 import { createClient } from "@/lib/supabase/client"
 
@@ -38,6 +39,7 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
   })
   const router = useRouter()
   const supabase = createClient()
+  const { toast } = useToast()
 
   const handleEmailUpdate = async () => {
     try {
@@ -55,17 +57,45 @@ export function ProfileEditForm({ profile }: ProfileEditFormProps) {
       if (!response.ok) throw new Error(result.error || "Failed to update email")
 
       setAuthSuccess("Email updated successfully!")
+      toast({ title: "Email updated", description: "Your email has been changed." })
       setTimeout(() => setAuthSuccess(""), 3000)
     } catch (e: any) {
-      setError(e?.message || "Failed to update email")
+      const msg = e?.message || "Failed to update email"
+      setError(msg)
+      toast({ title: "Update failed", description: msg, variant: "destructive" as any })
       setTimeout(() => setError(""), 4000)
     } finally {
       setIsLoading(false)
     }
   }
 
-  const handlePasswordUpdate = () => {
-    // Password update logic here
+  const handlePasswordUpdate = async () => {
+    try {
+      if (!authData.newPassword || !authData.confirmPassword) return
+      if (authData.newPassword !== authData.confirmPassword) {
+        setError("Passwords do not match")
+        toast({ title: "Update failed", description: "Passwords do not match", variant: "destructive" as any })
+        return
+      }
+      setIsLoading(true)
+      setError("")
+      setAuthSuccess("")
+
+      const { error } = await supabase!.auth.updateUser({ password: authData.newPassword })
+      if (error) throw error
+
+      setAuthSuccess("Password updated successfully!")
+      toast({ title: "Password updated", description: "Your password has been changed." })
+      setTimeout(() => setAuthSuccess(""), 3000)
+      setAuthData((prev) => ({ ...prev, newPassword: "", confirmPassword: "" }))
+    } catch (e: any) {
+      const msg = e?.message || "Failed to update password"
+      setError(msg)
+      toast({ title: "Update failed", description: msg, variant: "destructive" as any })
+      setTimeout(() => setError(""), 4000)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const handleChange = (name: string, value: string) => {

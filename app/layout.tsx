@@ -4,6 +4,7 @@ import { GeistSans } from "geist/font/sans"
 import { GeistMono } from "geist/font/mono"
 import "./globals.css"
 import { TopLoadingBar } from "@/components/ui/top-loading-bar"
+import { Toaster } from "@/components/ui/toaster"
 
 export const metadata: Metadata = {
   title: "Arionys Profile - Create Your Digital Profile",
@@ -59,6 +60,7 @@ export default function RootLayout({
       <body className={`font-sans ${GeistSans.variable} ${GeistMono.variable}`}>
         <TopLoadingBar />
         {children}
+        <Toaster />
       </body>
     </html>
   )

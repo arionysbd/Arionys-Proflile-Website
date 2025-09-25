@@ -40,13 +40,19 @@ export const BLOCK_TYPES = {
     name: "Education",
     description: "Show your educational background",
     icon: <GraduationCap className="h-4 w-4" />,
-    fields: [{ key: "entries", label: "Education Entries", type: "timeline-entries" }],
+    fields: [
+      { key: "entries", label: "Education Entries", type: "timeline-entries" },
+      { key: "displayStyle", label: "Display Style", type: "select", options: ["zigzag", "cards"] },
+    ],
   },
   experience: {
     name: "Experience",
     description: "Display your work experience",
     icon: <Briefcase className="h-4 w-4" />,
-    fields: [{ key: "entries", label: "Experience Entries", type: "timeline-entries" }],
+    fields: [
+      { key: "entries", label: "Experience Entries", type: "timeline-entries" },
+      { key: "displayStyle", label: "Display Style", type: "select", options: ["zigzag", "cards"] },
+    ],
   },
   project: {
     name: "Projects",
@@ -348,7 +354,7 @@ export const BLOCK_TYPES = {
     description: "Upload and display images",
     icon: <ImageIcon className="h-4 w-4" />,
     fields: [
-      { key: "imageUrl", label: "Image URL", type: "url", placeholder: "https://example.com/image.jpg" },
+      { key: "imageUrl", label: "Image", type: "file", accept: "image/*" },
       { key: "size", label: "Size", type: "select", options: ["small", "medium", "large", "full"] },
     ],
   },

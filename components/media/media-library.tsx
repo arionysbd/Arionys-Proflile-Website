@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { FileUpload } from "./file-upload"
-import { Trash2, Copy, ExternalLink, ImageIcon, Video, Music } from "lucide-react"
+import { Trash2, ExternalLink, ImageIcon, Video, Music, Check } from "lucide-react"
 
 interface MediaFile {
   url: string
@@ -63,11 +63,7 @@ export function MediaLibrary({ onSelect, showUpload = true }: MediaLibraryProps)
       console.error("Error deleting file:", error)
     }
   }
-
-  const copyToClipboard = (url: string) => {
-    navigator.clipboard.writeText(url)
-    // You could add a toast notification here
-  }
+  
 
   const filteredFiles = files.filter((file) => filter === "all" || file.category === filter)
 
@@ -106,50 +102,51 @@ export function MediaLibrary({ onSelect, showUpload = true }: MediaLibraryProps)
         ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filteredFiles.map((file) => (
-          <Card key={file.url} className="overflow-hidden">
-            <div className="aspect-video bg-muted flex items-center justify-center">
-              {file.category === "image" ? (
-                <img src={file.url || "/placeholder.svg"} alt={file.filename} className="w-full h-full object-cover" />
-              ) : file.category === "video" ? (
-                <video src={file.url} className="w-full h-full object-cover" controls={false} />
-              ) : (
-                <div className="flex flex-col items-center gap-2 text-muted-foreground">
-                  {getFileIcon(file.category)}
-                  <span className="text-sm">Audio File</span>
-                </div>
-              )}
-            </div>
-            <div className="p-3">
-              <div className="flex items-center gap-2 mb-2">
-                {getFileIcon(file.category)}
-                <span className="text-sm font-medium truncate">{file.filename}</span>
-              </div>
-              <div className="flex gap-1">
-                <Button size="sm" variant="outline" onClick={() => copyToClipboard(file.url)} className="flex-1">
-                  <Copy className="h-3 w-3" />
-                </Button>
-                <Button size="sm" variant="outline" onClick={() => window.open(file.url, "_blank")}>
-                  <ExternalLink className="h-3 w-3" />
-                </Button>
-                {onSelect && (
-                  <Button size="sm" onClick={() => onSelect(file)} className="flex-1">
-                    Select
-                  </Button>
+      {/* <div className="text-xs text-muted-foreground pl-1 -mt-1">Tip: scroll horizontally to view more files</div> */}
+
+      <div className="overflow-x-auto pb-2">
+        <div className="flex gap-3 pr-2 pl-2">
+          {filteredFiles.map((file) => (
+            <Card key={file.url} className="overflow-hidden w-36 sm:w-44 flex-shrink-0">
+              <div className="bg-muted flex items-center justify-center h-32 sm:h-40 w-full rounded-lg overflow-hidden">
+                {file.category === "image" ? (
+                  <img src={file.url || "/placeholder.svg"} alt={file.filename} className="w-full h-full object-contain" />
+                ) : file.category === "video" ? (
+                  <video src={file.url} className="w-full h-full object-contain" controls={false} />
+                ) : (
+                  <div className="flex flex-col items-center gap-2 text-muted-foreground">
+                    {getFileIcon(file.category)}
+                    <span className="text-sm">Audio File</span>
+                  </div>
                 )}
-                <Button
-                  size="sm"
-                  variant="outline"
-                  onClick={() => handleDelete(file.url)}
-                  className="text-destructive hover:text-destructive"
-                >
-                  <Trash2 className="h-3 w-3" />
-                </Button>
               </div>
-            </div>
-          </Card>
-        ))}
+              <div className="p-3">
+                <div className="flex items-center gap-2 mb-2">
+                  {getFileIcon(file.category)}
+                  <span className="text-sm font-medium truncate">{file.filename}</span>
+                </div>
+                <div className="grid grid-cols-3 gap-2">
+                  <Button size="icon" variant="outline" onClick={() => window.open(file.url, "_blank")} className="h-8 w-8">
+                    <ExternalLink className="h-3 w-3" />
+                  </Button>
+                  {onSelect && (
+                    <Button size="icon" onClick={() => onSelect(file)} className="h-8 w-8">
+                      <Check className="h-3 w-3" />
+                    </Button>
+                  )}
+                  <Button
+                    size="icon"
+                    variant="outline"
+                    onClick={() => handleDelete(file.url)}
+                    className="h-8 w-8 text-destructive hover:text-destructive"
+                  >
+                    <Trash2 className="h-3 w-3" />
+                  </Button>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
       </div>
 
       {filteredFiles.length === 0 && (

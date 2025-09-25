@@ -8,6 +8,7 @@ interface EducationBlockProps {
 
 export function EducationBlock({ block, theme = "default" }: EducationBlockProps) {
   const entries = block.content?.entries || []
+  const displayStyle = block.content?.displayStyle || "zigzag"
 
   if (entries.length === 0) {
     return null
@@ -19,6 +20,46 @@ export function EducationBlock({ block, theme = "default" }: EducationBlockProps
     if (!toDate) return `${from} - Present`
     const to = new Date(toDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })
     return `${from} - ${to}`
+  }
+
+  if (displayStyle === "cards") {
+    return (
+      <Card className="w-full border-0 shadow-none bg-transparent">
+        <CardHeader className="pb-6">
+          <CardTitle className="flex items-center gap-3 text-xl">
+            <div className="p-2 rounded-lg bg-blue-100 dark:bg-blue-900/20">
+              <GraduationCap className="h-5 w-5 text-blue-600 dark:text-blue-400" />
+            </div>
+            <span className="font-semibold">{block.title || "Education"}</span>
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="px-6">
+          <div className="space-y-6">
+            {entries.map((entry: any) => (
+              <Card key={entry.id} className="border border-gray-200/60 dark:border-gray-700/60">
+                <CardContent className="p-6">
+                  <div className="space-y-2">
+                    <h3 className="font-bold text-lg text-gray-900 dark:text-gray-100">{entry.title}</h3>
+                    {entry.description && (
+                      <p className="text-gray-600 dark:text-gray-300 text-sm leading-relaxed whitespace-pre-line">
+                        {entry.description}
+                      </p>
+                    )}
+                    {(entry.fromDate || entry.toDate) && (
+                      <div className="pt-2 border-t border-gray-100 dark:border-gray-700">
+                        <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 border border-blue-200 dark:border-blue-700">
+                          {formatDateRange(entry.fromDate, entry.toDate)}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    )
   }
 
   return (

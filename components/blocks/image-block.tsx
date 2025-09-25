@@ -8,6 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog"
+import { MediaLibrary } from "@/components/media/media-library"
 import { ImageIcon, Edit2, Save, X, Upload } from "lucide-react"
 
 interface ImageBlockProps {
@@ -29,6 +31,7 @@ export function ImageBlock({ id, data, isEditing, onSave, onEdit, onCancel }: Im
   })
   const [uploading, setUploading] = useState(false)
   const fileInputRef = useRef<HTMLInputElement>(null)
+  const [showMediaLibrary, setShowMediaLibrary] = useState(false)
 
   const handleSave = () => {
     onSave?.(formData)
@@ -40,12 +43,12 @@ export function ImageBlock({ id, data, isEditing, onSave, onEdit, onCancel }: Im
 
     setUploading(true)
     try {
-      const formData = new FormData()
-      formData.append("file", file)
+      const uploadData = new FormData()
+      uploadData.append("file", file)
 
       const response = await fetch("/api/upload", {
         method: "POST",
-        body: formData,
+        body: uploadData,
       })
 
       if (response.ok) {
@@ -57,6 +60,12 @@ export function ImageBlock({ id, data, isEditing, onSave, onEdit, onCancel }: Im
     } finally {
       setUploading(false)
     }
+  }
+
+  const handleMediaSelect = (file: { url: string }) => {
+    if (!file?.url) return
+    setFormData((prev) => ({ ...prev, imageUrl: file.url }))
+    setShowMediaLibrary(false)
   }
 
   const getSizeClass = (size: string) => {
@@ -76,6 +85,7 @@ export function ImageBlock({ id, data, isEditing, onSave, onEdit, onCancel }: Im
 
   if (isEditing) {
     return (
+      <>
       <Card>
         <CardContent className="p-4 space-y-4">
           <div className="flex items-center justify-between">
@@ -108,6 +118,19 @@ export function ImageBlock({ id, data, isEditing, onSave, onEdit, onCancel }: Im
                 </Button>
                 <input ref={fileInputRef} type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
               </div>
+            </div>
+
+            <div>
+              <Label>Or Select from Library</Label>
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => setShowMediaLibrary(true)}
+                className="w-full"
+              >
+                <Upload className="h-4 w-4 mr-2" />
+                Select from Media Library
+              </Button>
             </div>
 
             <div>
@@ -150,6 +173,18 @@ export function ImageBlock({ id, data, isEditing, onSave, onEdit, onCancel }: Im
           </div>
         </CardContent>
       </Card>
+      <Dialog open={showMediaLibrary} onOpenChange={setShowMediaLibrary}>
+        <DialogContent className="w-[98vw] sm:max-w-[1200px] md:max-w-[1400px] h-[90vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle>Select Media</DialogTitle>
+            <DialogDescription>Choose an image from your media library or upload a new one</DialogDescription>
+          </DialogHeader>
+          <div className="h-full overflow-auto pr-1">
+            <MediaLibrary onSelect={handleMediaSelect} />
+          </div>
+        </DialogContent>
+      </Dialog>
+      </>
     )
   }
 

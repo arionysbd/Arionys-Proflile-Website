@@ -172,6 +172,24 @@ export function BlockCard({ block }: BlockCardProps) {
           </div>
         )
 
+      case "achievement":
+        const achievementEntries = (block.content.entries || []) as any[]
+        return (
+          <div className="space-y-2">
+            <div className="flex items-center space-x-2">
+              <Star className="h-4 w-4 text-black" />
+              <p className="font-medium text-sm">Achievement Block</p>
+            </div>
+            <div className="text-xs text-muted-foreground">
+              {achievementEntries.length > 0 ? (
+                <p>{achievementEntries.length} item{achievementEntries.length === 1 ? "" : "s"}</p>
+              ) : (
+                <p>No achievements added yet</p>
+              )}
+            </div>
+          </div>
+        )
+
       case "text":
         return (
           <div className="space-y-2">

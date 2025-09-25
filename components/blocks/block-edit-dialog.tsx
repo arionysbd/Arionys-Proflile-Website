@@ -312,7 +312,7 @@ export function BlockEditDialog({ block, isOpen, onClose, onSave }: BlockEditDia
         <DialogContent className="sm:max-w-[800px] max-h-[600px]">
           <DialogHeader>
             <DialogTitle>Select Media</DialogTitle>
-            <DialogDescription>Choose a file from your media library or upload a new one</DialogDescription>
+            <DialogDescription>Choose a file from your media library or upload a new one  || Tip: scroll horizontally to view more files</DialogDescription>
           </DialogHeader>
           <div className="overflow-y-auto">
             <MediaLibrary onSelect={handleMediaSelect} />

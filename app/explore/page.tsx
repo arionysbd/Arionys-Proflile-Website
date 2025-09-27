@@ -25,11 +25,9 @@ export default async function ExplorePage() {
       {/* Header */}
       <header className="border-b bg-white/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">AN</span>
-            </div>
-            <span className="font-bold text-xl">Arionys Profile</span>
+          <Link href="/" className="flex items-center space-x-3">
+            <img src="/arionys-logo.png" alt="Arionys Logo" className="w-10 h-10 rounded-full" />
+            <span className="font-bold text-xl bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">Arionys Profile</span>
           </Link>
           <div className="flex items-center space-x-4">
             <Link href="/auth/login">

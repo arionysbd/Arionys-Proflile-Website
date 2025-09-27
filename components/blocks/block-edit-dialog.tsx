@@ -266,7 +266,7 @@ export function BlockEditDialog({ block, isOpen, onClose, onSave }: BlockEditDia
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="sm:max-w-[500px] max-h-[80vh] overflow-y-auto">
+        <DialogContent className="sm:max-w-[700px] lg:max-w-[800px] max-h-[95vh] overflow-y-auto">
           <DialogHeader>
             <DialogTitle className="flex items-center space-x-2">
               {blockType && <span className="flex items-center justify-center">{blockType.icon}</span>}

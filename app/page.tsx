@@ -12,14 +12,11 @@ export default function HomePage() {
         <div className="container mx-auto px-4 py-3 flex items-center justify-between">
           <div className="flex items-center space-x-3">
             <img src="/arionys-logo.png" alt="Arionys Logo" className="w-10 h-10 rounded-full" />
-            <span className="font-bold text-xl bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">Arionys Profile</span>
+            <span className="font-bold text-lg bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">Arionys Profile</span>
           </div>
-          <div className="flex items-center space-x-4">
-            <Link href="/explore">
-              <Button variant="ghost" className="hover:bg-gray-100">Explore</Button>
-            </Link>
+          <div className="flex items-center space-x-1">
             <Link href="/auth/login">
-              <Button variant="ghost" className="hover:bg-gray-100">Sign In</Button>
+              <Button variant="ghost" className="text-black hover:bg-black hover:text-white">Sign In</Button>
             </Link>
             <Link href="/auth/sign-up">
               <Button className="bg-black hover:bg-gray-800 text-white">Get Started</Button>
@@ -31,7 +28,7 @@ export default function HomePage() {
       {/* Hero Section */}
       <section className="py-24 px-4 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto text-center max-w-4xl">
-          <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 hover:bg-black/10">
+          <Badge variant="secondary" className="mb-4 px-4 py-2 text-sm font-medium bg-black/5 hover:bg-black/10 text-black">
             ✨ Build Your Digital Identity
           </Badge>
           <h1 className="text-5xl md:text-6xl font-bold mb-8 text-balance bg-gradient-to-r from-black via-gray-800 to-gray-700 bg-clip-text text-transparent">
@@ -49,7 +46,7 @@ export default function HomePage() {
               </Button>
             </Link>
             <Link href="/explore">
-              <Button size="lg" variant="outline" className="text-lg px-10 py-7 bg-transparent border-2 hover:bg-gray-50 transition-all">
+              <Button size="lg" variant="outline" className="text-lg px-10 py-7 bg-transparent border-2 border-black text-black hover:bg-black hover:text-white transition-all">
                 View Examples
               </Button>
             </Link>
@@ -223,22 +220,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-      
-      {/* CTA Section */}
-      {/* <section className="py-24 px-4 bg-white">
-        <div className="container mx-auto text-center max-w-3xl">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6 bg-gradient-to-r from-black via-gray-800 to-gray-700 bg-clip-text text-transparent">Ready to Build Your Digital Presence?</h2>
-          <p className="text-xl text-muted-foreground mb-10">
-            Join thousands of creators who trust Arionys Profile to showcase their work
-          </p>
-          <Link href="/auth/sign-up">
-            <Button size="lg" className="text-lg px-10 py-7 bg-black hover:bg-gray-800 text-white shadow-lg hover:shadow-xl transition-all">
-              Create Your Profile Now
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
-        </div> */}
-      {/* </section> */}
+
     </div>
   )
 }

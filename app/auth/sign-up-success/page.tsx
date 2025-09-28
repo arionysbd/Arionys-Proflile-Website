@@ -6,11 +6,9 @@ export default function SignUpSuccessPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold">AN</span>
-            </div>
-            <span className="font-bold text-2xl">Arionys Profile</span>
+          <div className="flex items-center justify-center space-x-3 mb-4">
+            <img src="/arionys-logo.png" alt="Arionys Logo" className="w-10 h-10 rounded-full" />
+            <span className="font-bold text-2xl bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">Arionys Profile</span>
           </div>
         </div>
 

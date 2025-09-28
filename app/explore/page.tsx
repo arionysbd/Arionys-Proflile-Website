@@ -29,9 +29,9 @@ export default async function ExplorePage() {
             <img src="/arionys-logo.png" alt="Arionys Logo" className="w-10 h-10 rounded-full" />
             <span className="font-bold text-xl bg-gradient-to-r from-black to-gray-700 bg-clip-text text-transparent">Arionys Profile</span>
           </Link>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-0 sm:space-x-0.5 flex-shrink-0">
             <Link href="/auth/login">
-              <Button variant="ghost">Sign In</Button>
+              <Button variant="ghost" className="text-black hover:bg-black hover:text-white">Sign In</Button>
             </Link>
             <Link href="/auth/sign-up">
               <Button>Get Started</Button>
